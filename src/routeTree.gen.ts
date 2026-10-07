@@ -11,15 +11,21 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SellerRouteImport } from './routes/seller'
 import { Route as SellerLoginRouteImport } from './routes/seller-login'
 import { Route as SellerRegisterRouteImport } from './routes/seller-register'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
+import { Route as SellerIndexRouteImport } from './routes/seller.index'
+import { Route as SellerProfileRouteImport } from './routes/seller.profile'
 import { Route as ShopsIdRouteImport } from './routes/shops.$id'
+import { Route as SellerProductsIdRouteImport } from './routes/seller.products.$id'
+import { Route as SellerProductsNewRouteImport } from './routes/seller.products.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CartRoute = CartRouteImport.update({
@@ -56,6 +67,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerRoute = SellerRouteImport.update({
+  id: '/seller',
+  path: '/seller',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SellerLoginRoute = SellerLoginRouteImport.update({
   id: '/seller-login',
   path: '/seller-login',
@@ -71,28 +87,55 @@ const ProductIdRoute = ProductIdRouteImport.update({
   path: '/product/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerIndexRoute = SellerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SellerRoute,
+} as any)
+const SellerProfileRoute = SellerProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SellerRoute,
+} as any)
 const ShopsIdRoute = ShopsIdRouteImport.update({
   id: '/shops/$id',
   path: '/shops/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerProductsIdRoute = SellerProductsIdRouteImport.update({
+  id: '/products/$id',
+  path: '/products/$id',
+  getParentRoute: () => SellerRoute,
+} as any)
+const SellerProductsNewRoute = SellerProductsNewRouteImport.update({
+  id: '/products/new',
+  path: '/products/new',
+  getParentRoute: () => SellerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/seller': typeof SellerRouteWithChildren
   '/seller-login': typeof SellerLoginRoute
   '/seller-register': typeof SellerRegisterRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/shops/$id': typeof ShopsIdRoute
+  '/seller/': typeof SellerIndexRoute
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
@@ -101,40 +144,57 @@ export interface FileRoutesByTo {
   '/seller-login': typeof SellerLoginRoute
   '/seller-register': typeof SellerRegisterRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/shops/$id': typeof ShopsIdRoute
+  '/seller': typeof SellerIndexRoute
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/seller': typeof SellerRouteWithChildren
   '/seller-login': typeof SellerLoginRoute
   '/seller-register': typeof SellerRegisterRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/shops/$id': typeof ShopsIdRoute
+  '/seller/': typeof SellerIndexRoute
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/account'
     | '/cart'
     | '/login'
     | '/menu'
     | '/register'
     | '/reset-password'
+    | '/seller'
     | '/seller-login'
     | '/seller-register'
     | '/product/$id'
+    | '/seller/profile'
     | '/shops/$id'
+    | '/seller/'
+    | '/seller/products/$id'
+    | '/seller/products/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/account'
     | '/cart'
     | '/login'
     | '/menu'
@@ -143,30 +203,42 @@ export interface FileRouteTypes {
     | '/seller-login'
     | '/seller-register'
     | '/product/$id'
+    | '/seller/profile'
     | '/shops/$id'
+    | '/seller'
+    | '/seller/products/$id'
+    | '/seller/products/new'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/account'
     | '/cart'
     | '/login'
     | '/menu'
     | '/register'
     | '/reset-password'
+    | '/seller'
     | '/seller-login'
     | '/seller-register'
     | '/product/$id'
+    | '/seller/profile'
     | '/shops/$id'
+    | '/seller/'
+    | '/seller/products/$id'
+    | '/seller/products/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
   CartRoute: typeof CartRoute
   LoginRoute: typeof LoginRoute
   MenuRoute: typeof MenuRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SellerRoute: typeof SellerRouteWithChildren
   SellerLoginRoute: typeof SellerLoginRoute
   SellerRegisterRoute: typeof SellerRegisterRoute
   ProductIdRoute: typeof ProductIdRoute
@@ -187,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cart': {
@@ -224,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller': {
+      id: '/seller'
+      path: '/seller'
+      fullPath: '/seller'
+      preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/seller-login': {
       id: '/seller-login'
       path: '/seller-login'
@@ -245,6 +331,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/': {
+      id: '/seller/'
+      path: '/'
+      fullPath: '/seller/'
+      preLoaderRoute: typeof SellerIndexRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/seller/profile': {
+      id: '/seller/profile'
+      path: '/profile'
+      fullPath: '/seller/profile'
+      preLoaderRoute: typeof SellerProfileRouteImport
+      parentRoute: typeof SellerRoute
+    }
     '/shops/$id': {
       id: '/shops/$id'
       path: '/shops/$id'
@@ -252,17 +352,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/products/$id': {
+      id: '/seller/products/$id'
+      path: '/products/$id'
+      fullPath: '/seller/products/$id'
+      preLoaderRoute: typeof SellerProductsIdRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/seller/products/new': {
+      id: '/seller/products/new'
+      path: '/products/new'
+      fullPath: '/seller/products/new'
+      preLoaderRoute: typeof SellerProductsNewRouteImport
+      parentRoute: typeof SellerRoute
+    }
   }
 }
+
+interface SellerRouteChildren {
+  SellerProfileRoute: typeof SellerProfileRoute
+  SellerIndexRoute: typeof SellerIndexRoute
+  SellerProductsIdRoute: typeof SellerProductsIdRoute
+  SellerProductsNewRoute: typeof SellerProductsNewRoute
+}
+
+const SellerRouteChildren: SellerRouteChildren = {
+  SellerProfileRoute: SellerProfileRoute,
+  SellerIndexRoute: SellerIndexRoute,
+  SellerProductsIdRoute: SellerProductsIdRoute,
+  SellerProductsNewRoute: SellerProductsNewRoute,
+}
+
+const SellerRouteWithChildren =
+  SellerRoute._addFileChildren(SellerRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
   CartRoute: CartRoute,
   LoginRoute: LoginRoute,
   MenuRoute: MenuRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SellerRoute: SellerRouteWithChildren,
   SellerLoginRoute: SellerLoginRoute,
   SellerRegisterRoute: SellerRegisterRoute,
   ProductIdRoute: ProductIdRoute,
