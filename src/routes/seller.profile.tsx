@@ -32,8 +32,8 @@ function ShopProfile() {
   const s = shop.data;
   if (!s) return <div className="h-64 animate-pulse rounded-3xl bg-muted" />;
 
-  const patch = async (row: Record<string, unknown>) => {
-    const { error } = await supabase.from("sellers").update(row).eq("id", s.id);
+  const patch = async (row: Record<string, any>) => {
+    const { error } = await supabase.from("sellers").update(row as never).eq("id", s.id);
     if (error) throw error;
     qc.invalidateQueries({ queryKey: ["my-shop"] });
   };
