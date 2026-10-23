@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 
+const productLabelClass = "flex h-10 w-full min-w-0 items-center leading-5";
+
 const schema = z.object({
   name: z.string().trim().min(2, "Enter a name").max(100),
   category_id: z.string().uuid("Choose a category"),
@@ -54,7 +56,7 @@ export function ProductForm({ userId, sellerId, product }: { userId: string; sel
   return (
     <form onSubmit={submit} noValidate className="grid gap-6 rounded-3xl border bg-card p-6 md:grid-cols-[240px_1fr]">
       <div>
-        <Label>Product image</Label>
+        <Label className={productLabelClass}>Product image</Label>
         <label className="mt-1.5 flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed bg-muted">
           {preview ? <img src={preview} alt="" className="h-full w-full object-cover" /> : <span className="p-4 text-center text-sm text-muted-foreground">Click to upload JPG, PNG or WEBP (max 5 MB)</span>}
           <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => {
@@ -67,20 +69,20 @@ export function ProductForm({ userId, sellerId, product }: { userId: string; sel
         </label>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="sm:col-span-2"><Field label="Product name" name="name" defaultValue={product?.name} error={errors.name} /></div>
+        <div className="sm:col-span-2"><Field label="Product name" labelClassName={productLabelClass} name="name" defaultValue={product?.name} error={errors.name} /></div>
         <div className="space-y-1.5">
-          <Label htmlFor="category_id">Category</Label>
+          <Label htmlFor="category_id" className={productLabelClass}>Category</Label>
           <select id="category_id" name="category_id" defaultValue={product?.category_id ?? ""} className="h-11 w-full rounded-xl border bg-background px-3">
             <option value="" disabled>Choose…</option>
             {(cats.data ?? []).map((c) => <option key={c.id} value={c.id}>{c.emoji} {c.name}</option>)}
           </select>
           {errors.category_id && <p className="text-xs text-destructive">{errors.category_id}</p>}
         </div>
-        <Field label="Price (₹)" name="price" type="number" min={1} step="0.01" defaultValue={product?.price} error={errors.price} />
-        <Field label="Quantity / volume" name="volume" placeholder="300 ml" defaultValue={product?.volume} error={errors.volume} />
-        <Field label="Ingredients (comma separated)" name="ingredients" placeholder="Mango, Water, Ice" defaultValue={product?.ingredients} error={errors.ingredients} />
+        <Field label="Price (₹)" labelClassName={productLabelClass} name="price" type="number" min={1} step="0.01" defaultValue={product?.price} error={errors.price} />
+        <Field label="Quantity / volume" labelClassName={productLabelClass} name="volume" placeholder="300 ml" defaultValue={product?.volume} error={errors.volume} />
+        <Field label="Ingredients (comma separated)" labelClassName={productLabelClass} name="ingredients" placeholder="Mango, Water, Ice" defaultValue={product?.ingredients} error={errors.ingredients} />
         <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="short_description">Short description</Label>
+          <Label htmlFor="short_description" className={productLabelClass}>Short description</Label>
           <Textarea id="short_description" name="short_description" rows={3} defaultValue={product?.short_description} className="rounded-xl" />
           {errors.short_description && <p className="text-xs text-destructive">{errors.short_description}</p>}
         </div>

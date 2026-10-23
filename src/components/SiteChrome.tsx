@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold">
+    <Link to="/" className="sipora-logo flex items-center gap-2 font-display text-xl font-bold">
       <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-fresh text-primary-foreground">
-        <GlassWater className="h-5 w-5" />
+        <GlassWater className="sipora-cup h-5 w-5" />
       </span>
       Sipora
     </Link>

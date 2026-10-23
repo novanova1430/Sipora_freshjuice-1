@@ -3,11 +3,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 export function Field({
-  label, name, error, ...props
-}: { label: string; name: string; error?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  label, name, error, labelClassName, ...props
+}: { label: string; name: string; error?: string; labelClassName?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="space-y-1.5">
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name} className={labelClassName}>{label}</Label>
       <Input id={name} name={name} className="h-11 rounded-xl" {...props} />
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>

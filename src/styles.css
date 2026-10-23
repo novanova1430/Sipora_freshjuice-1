@@ -141,6 +141,11 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+@keyframes sipora-cup-wiggle {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-8deg); }
+  65% { transform: rotate(6deg); }
+}
 @utility animate-rise {
   animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -149,6 +154,11 @@
 }
 @utility animate-float {
   animation: float-slow 6s ease-in-out infinite;
+}
+
+.sipora-logo:hover .sipora-cup,
+.sipora-logo:focus-visible .sipora-cup {
+  animation: sipora-cup-wiggle 700ms ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
